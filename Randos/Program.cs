@@ -2,7 +2,9 @@
 
 using Randos;
 
-Console.WriteLine("*** Welcome to Interview Games ***/r/n");
+Console.WriteLine(string.Empty);
+Console.WriteLine("*** Welcome to Interview Games ***");
+Console.WriteLine(string.Empty);
 
 InterviewGames.ShowReverseNumber();
 InterviewGames.ShowReverseString();
