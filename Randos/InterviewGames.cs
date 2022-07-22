@@ -33,6 +33,7 @@ public static class InterviewGames
 
         return reversedNumber;
     }
+    
     public static void ShowReverseString()
     {
         WriteInputPrompt("Enter a string to reverse");
