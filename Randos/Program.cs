@@ -2,7 +2,13 @@
 
 using Randos;
 
-//InterviewGames.ShowReverseNumber();
-//InterviewGames.ShowReverseString();
+Console.WriteLine("*** Welcome to Interview Games ***/r/n");
+
+InterviewGames.ShowReverseNumber();
+InterviewGames.ShowReverseString();
 InterviewGames.ShowFactorial();
-//InterviewGames.ShowFibonacci();
+InterviewGames.ShowFibonacci();
+
+Console.ForegroundColor = ConsoleColor.White;
+Console.WriteLine("Press any key to quit...");
+Console.ReadKey();

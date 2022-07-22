@@ -1,23 +1,21 @@
-using System;
-
 namespace Randos;
 
 public static class InterviewGames
 {
     public static void ShowReverseNumber()
     {
-        Console.WriteLine("Enter a number to reverse");
+        WriteInputPrompt("Enter a number to reverse");
         var valueEntered = Console.ReadLine();
 
         var result = ReverseNumber(valueEntered);
         
         if (result == null)
         {
-            Console.WriteLine($"{valueEntered} is not a number");
+            WriteErrorPrompt($"{valueEntered} is not a number");
             return;
         }
 
-        Console.WriteLine($"Reverse number is {result}");
+        WriteResultLine($"Reverse number is: {result}");
     }
     
     private static long? ReverseNumber(string? numberToReverse)
@@ -37,13 +35,12 @@ public static class InterviewGames
     }
     public static void ShowReverseString()
     {
-        Console.WriteLine("Enter a string");
+        WriteInputPrompt("Enter a string to reverse");
         var value = Console.ReadLine();
 
         var reversedString = ReverseString(value);
          
-        Console.WriteLine($"The reverse string is {reversedString}");
-        Console.ReadKey();
+        WriteResultLine($"The reverse string is: {reversedString}");
     }
 
     private static string ReverseString(string? toReverse)
@@ -55,34 +52,31 @@ public static class InterviewGames
 
     public static void ShowFactorial()
     {
-        Console.WriteLine("Enter a number to factor");
+        WriteInputPrompt("Enter a number to factor");
         var valueEntered = Console.ReadLine();
-
-        if (!int.TryParse(valueEntered, out var number))
-        {
-            Console.WriteLine($"{valueEntered} is not a number");
-            return;
-        }
-            
-        var result = Factorial(number);
+        
+        var result = Factorial(valueEntered ?? string.Empty);
 
         if (result == null)
         {
-            Console.WriteLine($"Exception while factoring {number}");
+            WriteErrorPrompt($"{valueEntered} is not a number");
             return;
         }
         
-        Console.WriteLine($"Factorial is {result}");
+        WriteResultLine($"Factorial is: {result}");
     }
 
-    private static double? Factorial(int number)
+    private static double? Factorial(string valueEntered)
     {
+        if (!int.TryParse(valueEntered, out var number))
+            return null;
+        
         try
         {
             if (number == 1)
                 return 1;
         
-            return number * Factorial(number - 1);
+            return number * Factorial((number - 1).ToString());
         }
         catch(Exception)
         {
@@ -92,20 +86,56 @@ public static class InterviewGames
     
     public static void ShowFibonacci()
     {
-        Console.Write("Enter the length of the Fibonacci Series: ");  
-        int length = Convert.ToInt32(Console.ReadLine());  
-        for (int i = 0; i < length; i++)  
+        WriteInputPrompt("Enter the length of the Fibonacci Series: ");
+
+        var valueEntered = Console.ReadLine();
+        
+        if (!int.TryParse(valueEntered, out var number))
+        {
+            WriteErrorPrompt($"{valueEntered} is not a number");
+            return;
+        }
+        
+        for (var i = 0; i < number; i++)  
         {  
             Console.Write("{0} ", FibonacciSeries(i));  
-        }  
-        Console.ReadKey(); 
+        }
+        
+        WriteLine(string.Empty);
     }
     
-    private static int FibonacciSeries(int n)  
-    {  
-        if (n == 0) return 0; //To return the first Fibonacci number   
-        if (n == 1) return 1; //To return the second Fibonacci number   
-        return FibonacciSeries(n - 1) + FibonacciSeries(n - 2);  
-    }   
+    private static int FibonacciSeries(int n)
+    {
+        return n switch
+        {
+            0 => 0,
+            1 => 1,
+            _ => FibonacciSeries(n - 1) + FibonacciSeries(n - 2)
+        };
+    }
+
+    private static void WriteInputPrompt(string prompt)
+    {
+        WriteLine(prompt, ConsoleColor.Yellow);
+    }
+
+    private static void WriteResultLine(string line)
+    {
+        WriteLine(line, ConsoleColor.Green, true);
+    }
+
+    private static void WriteErrorPrompt(string errorPrompt)
+    {
+        WriteLine(errorPrompt, ConsoleColor.Red, true);
+    }
+    
+    private static void WriteLine(string line, ConsoleColor color = ConsoleColor.White, bool includeLineFeed = false)
+    {
+        Console.ForegroundColor = color;
+        Console.WriteLine(line);
+        
+        if(includeLineFeed)
+            Console.WriteLine("\r");
+    }
 }
 
