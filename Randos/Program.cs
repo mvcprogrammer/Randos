@@ -1,6 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using Randos;
+﻿using Randos;
 
 Console.WriteLine(string.Empty);
 Console.WriteLine("*** Welcome to Interview Games ***");

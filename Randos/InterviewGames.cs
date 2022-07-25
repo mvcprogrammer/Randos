@@ -37,8 +37,8 @@ public static class InterviewGames
     public static void ShowReverseString()
     {
         WriteInputPrompt("Enter a string to reverse");
+        
         var value = Console.ReadLine();
-
         var reversedString = ReverseString(value);
          
         WriteResultLine($"The reverse string is: {reversedString}");
@@ -53,24 +53,32 @@ public static class InterviewGames
 
     public static void ShowFactorial()
     {
-        WriteInputPrompt("Enter a number to factor");
+        WriteInputPrompt("Enter a positive number less than 20 to factor");
         var valueEntered = Console.ReadLine();
         
         var result = Factorial(valueEntered ?? string.Empty);
 
-        if (result == null)
+        switch (result)
         {
-            WriteErrorPrompt($"{valueEntered} is not a number");
-            return;
+            case null:
+                WriteErrorPrompt($"{valueEntered} is not a number");
+                return;
+            case < 0:
+                WriteErrorPrompt("Number must be positive and less than 20");
+                return;
+            default:
+                WriteResultLine($"Factorial is: {result}");
+                break;
         }
-        
-        WriteResultLine($"Factorial is: {result}");
     }
 
     private static double? Factorial(string valueEntered)
     {
         if (!int.TryParse(valueEntered, out var number))
             return null;
+
+        if (number is > 20 or < 0)
+            return -1;
         
         try
         {
@@ -87,7 +95,7 @@ public static class InterviewGames
     
     public static void ShowFibonacci()
     {
-        WriteInputPrompt("Enter the length of the Fibonacci Series: ");
+        WriteInputPrompt("Enter the length of the Fibonacci Series less than 20: ");
 
         var valueEntered = Console.ReadLine();
         
@@ -96,9 +104,17 @@ public static class InterviewGames
             WriteErrorPrompt($"{valueEntered} is not a number");
             return;
         }
+
+        if (number is > 20 or < 0)
+        {
+            WriteErrorPrompt("Number must be positive and less than 20");
+            return;
+        }
+        
+        Console.ForegroundColor = ConsoleColor.Green;
         
         for (var i = 0; i < number; i++)  
-        {  
+        {
             Console.Write("{0} ", FibonacciSeries(i));  
         }
         
