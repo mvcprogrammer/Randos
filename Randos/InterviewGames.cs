@@ -1,3 +1,5 @@
+using System.ComponentModel;
+
 namespace Randos;
 
 public static class InterviewGames
@@ -24,12 +26,18 @@ public static class InterviewGames
             return null;
 
         var reversedNumber = 0;
+        var isNegative = number < 0;
+
+        number = Math.Abs(number);
 
         while (number > 0)
         {
             reversedNumber = reversedNumber * 10 + number % 10;
             number /= 10;
         }
+
+        if (isNegative)
+            reversedNumber *= -1;
 
         return reversedNumber;
     }
@@ -77,7 +85,7 @@ public static class InterviewGames
         if (!int.TryParse(valueEntered, out var number))
             return null;
 
-        if (number is > 20 or < 0)
+        if (number is >= 20 or < 0)
             return -1;
         
         try
@@ -105,7 +113,7 @@ public static class InterviewGames
             return;
         }
 
-        if (number is > 20 or < 0)
+        if (number is >= 20 or < 0)
         {
             WriteErrorPrompt("Number must be positive and less than 20");
             return;
